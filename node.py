@@ -1,6 +1,6 @@
 # Node class from my Project 1
 
-class Node:
+class Node(object):
 
     def __init__(self, val):
 
@@ -12,6 +12,7 @@ class Node:
     def insertIter(self, val):
         inserted = False
         curr = self
+        int(val)
 
         if curr.val:
             while not inserted:
@@ -35,6 +36,7 @@ class Node:
     def deleteIter(self, val):
         curr = self
         parent = self
+        int(val)
         print("Deleting:", val)
 
         while val:
@@ -143,25 +145,6 @@ class Node:
             elif curr.val >= start: # If value is greater, go left
                 curr = curr.left
 
-    # Finds the minimum value in the BST Iterively:
-    def findMinIter(self):
-        curr = self
-
-        while True:
-            if curr.left is None:
-                return curr
-            else:
-                curr = curr.left
-
-    # Finds the maximum value in the BST Iterively:
-    def findMaxIter(self):
-        curr = self
-
-        while True:
-            if curr.right is None:
-                return curr
-            else:
-                curr = curr.right
 
     # Prints the BST In-Order:
     def printTree(self):
