@@ -1,31 +1,72 @@
 # Main file
-# from node import Node
+
+from node import Node
 import random
+# Node class from my Project 1
 
 class Graph:
     
     def __init__(self):
 
-        self.visited = False # If visited
-        self.nodes = []    # Node list
+        self.visited = False  # If visited
+        self.nodes = []       # Node list
         self.connections = [] # Connection matrix
 
     
     # i.	void addNode(final String nodeVal) - This adds a new node to the graph.
     def addNode(self, val):
-        self.nodes.append(str(val))
+        self.nodes.append(Node(str(val)))
 
     
     # ii.	void addUndirectedEdge(final Node first, final Node second) - This adds an undirected edge between first and second (and vice versa).
-    def addUndirectedEdge(self, node_val1, node_val2):
-        self.connections.append([0, node_val1, node_val2]) # 0 is undirected
+    def addUndirectedEdge(self, node1, node2):
+        self.connections.append([0, node1, node2, 0]) # 0 is undirected
+        node1_val = str(node1)
+        node2_val = str(node2)
+
+        for node in self.nodes: # Loop through the nodes
+            if node.val == node1_val: # If the current node is equal to the first node
+                node1 = node
+            elif node.val == node2_val: # If the current node is equal to the second node
+                node2 = node
+
+        if node1 == str or node2 == str:
+            print("A node was not found.")
+            return
+
+        for conn in node1.connections: # Loop thorough the connections in the first node
+            if conn[1] == node2:
+                node1.connections.remove[node2]
+
+        for conn in node2.connections: # Loop thorough the connections in the first node
+            if conn[1] == node2:
+                node1.connections.remove[node2]
+
+        self.nodes[int(node1.val)].addEdge(self.nodes[int(node2.val)])
 
     
     # iii.	void removeUndirectedEdge(final Node first, final Node second) - This removes an undirected edge between first and second (and vice versa).
-    def removeUndirectedEdge(self, node_val1, node_val2):
-        for connection in self.connections:
-            if connection[0] == 0 and connection[1] == node_val1 and connection[2] == node_val2:
-                self.connections.remove(connection)
+    def removeUndirectedEdge(self, node1, node2):
+        node1_val = str(node1)
+        node2_val = str(node2)
+
+        for node in self.nodes: # Loop through the nodes
+            if node.val == node1_val: # If the current node is equal to the first node
+                node1 = node
+            elif node.val == node2_val: # If the current node is equal to the second node
+                node2 = node
+
+        if node1 == str or node2 == str:
+            print("A node was not found.")
+            return
+
+        for conn in node1.connections: # Loop thorough the connections in the first node
+            if conn[1] == node2:
+                node1.connections.remove(conn)
+
+        for conn in node2.connections: # Loop thorough the connections in the first node
+            if conn[1] == node1:
+                node1.connections.remove(conn)
 
 
     # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
@@ -63,50 +104,23 @@ class Graph:
         return graph
 
     def printGraph(self):
-        for node in self.nodes:
-            if node:
-                print(node, end=' ')
-
         print('\n' + "Connections:")
-        for conn in self.connections:
-            if conn[0] == 0:
-                print(conn[1], '--', conn[2])
-            elif conn[0] == 1:
-                print(conn[1], '->', conn[2])
-   
+        for node in self.nodes:
+            for conn in node.connections:
+                # print(conn, end=' ')
 
-class GraphSearch:
-
-    # TODO
-    # (d)	(3 points) (You must submit code for this question!) In a class called GraphSearch, implement ArrayList<Node> DFSRec(final Node start, final Node end), which recursively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
-    def DFSRec(self, start_node, end_node):
-        print()
-
-    # TODO
-    # (e)	(5 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> DFSIter(final Node start, final Node end), which iteratively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
-    def DFSIter(self, start_node, end_node):
-        print()
-
-    # TODO
-    # (f)	(3 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> BFTRec(final Graph graph), which recursively returns an ArrayList of the Nodes in the Graph in a valid Breadth-First Traversal order.
-    def BFTRec(self, graph):
-        print()
-
-    # TODO
-    # (g)	(5 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> BFTIter(final Graph graph), which iteratively returns an ArrayList of all of the Nodes in the Graph in a valid Breadth-First Traversal.
-    def BFTIter(self, graph):
-        print()
-
-    # TODO
-    # (h)	(3 points) (You may submit a screenshot for this question, but you’re not required to.) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTRecLinkedList(final Graph graph). This should run a BFT recursively on a LinkedList. Your LinkedList should have 10,000 nodes.
-    def BFTRecLinkedList(self, graph):
-        print()
-
-    # TODO
-    # (i)	(2 points) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTIterLinkedList(final Graph graph). This should run a BFT iteratively on a LinkedList. Your LinkedList should have 10,000 nodes.
-    def BFTIterLinkedList(self, graph):
-        print()
-
+                if conn[0] == 0:
+                    print(node.val, '--', conn[1].val, end='')
+                    if conn[2] > 0:
+                        print("W:", conn[2])
+                    else:
+                        print()
+                elif conn[0] == 1:
+                    print(node.val, '->', conn[1].val, "W:", conn[2])
+                    if conn[2] > 0:
+                        print("W:", conn[2])
+                    else:
+                        print()
 
 if __name__ == "__main__":
     
@@ -114,6 +128,7 @@ if __name__ == "__main__":
 
     # graph.addNode("1")
     graph.addUndirectedEdge("0", "1")
+    print(graph.printGraph())
     graph.removeUndirectedEdge("0", "1")
 
     print(graph.printGraph())
