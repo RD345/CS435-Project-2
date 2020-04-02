@@ -19,20 +19,20 @@ class Graph:
     
     # ii.	void addUndirectedEdge(final Node first, final Node second) - This adds an undirected edge between first and second (and vice versa).
     def addUndirectedEdge(self, node1, node2):
-        node1_val = str(node1)
-        node2_val = str(node2)
+        str(node1)
+        str(node2)
 
         for node in self.nodes: # Loop through the nodes
-            if node.val == node1_val: # If the current node is equal to the first node
+            if node.val == node1: # If the current node val is equal to the first node val
                 node1 = node
-            elif node.val == node2_val: # If the current node is equal to the second node
+            elif node.val == node2: # If the current node val is equal to the second node val
                 node2 = node
 
-        if node1 == str or node2 == str:
+        if node1 is not Node or node2 is str:
             print("A node was not found.")
-            return
-
-        self.nodes[int(node1.val)].addEdge(self.nodes[int(node2.val)])
+        else:
+            node1.addEdge([node2, 0])
+            node2.addEdge([node1, 0])
 
     
     # iii.	void removeUndirectedEdge(final Node first, final Node second) - This removes an undirected edge between first and second (and vice versa).
@@ -43,20 +43,19 @@ class Graph:
         for node in self.nodes: # Loop through the nodes
             if node.val == node1_val: # If the current node is equal to the first node
                 node1 = node
+                for conn in node1.connections: # Loop thorough the connections in the first node
+                    if conn[0] == node2:
+                        node1.connections.remove(conn)
             elif node.val == node2_val: # If the current node is equal to the second node
                 node2 = node
+                for conn in node2.connections: # Loop thorough the connections in the first node
+                    if conn[0] == node1:
+                        node1.connections.remove(conn)
 
         if node1 == str or node2 == str:
             print("A node was not found.")
             return
-
-        for conn in node1.connections: # Loop thorough the connections in the first node
-            if conn[0] == node2:
-                node1.connections.remove(conn)
-
-        for conn in node2.connections: # Loop thorough the connections in the first node
-            if conn[0] == node1:
-                node1.connections.remove(conn)
+        
 
     def addBiDirectionalEdge(self, node1, node2, weight=None):
         node1_val = str(node1)
@@ -87,7 +86,7 @@ class Graph:
         for i in range(0, n):
             graph.addNode(i)
 
-        for i in range(0, n): # While there are at least two nodes left to connect
+        for i in range(0, n):
             node1 = graph.nodes[i]
             node2 = random.choice(graph.nodes)
             graph.addBiDirectionalEdge(node1, node2)
@@ -97,18 +96,22 @@ class Graph:
     # (c)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called Graph createLinkedList(int n) that creates a Graph with n nodes where each node only has an edge to the next node created. For example, if you create nodes 1, 2, and 3, Node 1 only has an edge to Node 2, and Node 2 only has an edge to Node 3.
     def createLinkedList(self, n=10):
         graph = Graph()
-        prev_node = None
 
         for i in range(0, n):
             graph.addNode(i)
-            if prev_node:
-                graph.addUndirectedEdge(prev_node, i)
-            prev_node = i
+            if i > 0:
+                graph.nodes[i-1].connections.append([graph.nodes[i], 1, None])
+            prev_node = graph.nodes[i]
         
         return graph
 
+
     def printGraph(self):
-        print('\n' + "Connections:")
+        print('\n' + "Graph:")
+        for node in self.nodes:
+             print(node.val, end=' ')
+
+        print("\nConnections:")
         for node in self.nodes:
             for conn in node.connections:
                 # print(conn, end=' ')
@@ -133,7 +136,8 @@ class Graph:
 if __name__ == "__main__":
     
     print("Creating Random Unweighted Graph...")
-    graph = Graph.createRandomUnweightedGraphIter(20)
+    graph = Graph()
+    graph = graph.createRandomUnweightedGraphIter(20)
     graph.addUndirectedEdge("0", "1")
     graph.printGraph()
 
@@ -142,5 +146,5 @@ if __name__ == "__main__":
     graph.printGraph()
 
     print("\nCreating LinkedList...")
-    graph = Graph.createLinkedList(20)
+    graph = graph.createLinkedList(20)
     graph.printGraph()

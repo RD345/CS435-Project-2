@@ -8,7 +8,10 @@ class GraphSearch(Graph):
     # TODO
     # (d)	(3 points) (You must submit code for this question!) In a class called GraphSearch, implement ArrayList<Node> DFSRec(final Node start, final Node end), which recursively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
     def DFSRec(self, start_node, end_node):
-        
+        start_node.visited = True
+        for neighbor in start_node.connections:
+            if not neighbor.visited:
+                self.DFSRec(neighbor)
         print()
 
     # TODO
@@ -38,6 +41,6 @@ class GraphSearch(Graph):
 
 if __name__ == "__main__":
     graph = GraphSearch()
-    graph.createRandomUnweightedGraphIter(20)
+    graph.createRandomUnweightedGraphIter(200)
     graph.printGraph()
     
