@@ -1,8 +1,14 @@
-class GraphSearch:
+from graph import Graph
+
+class GraphSearch(Graph):
+   
+    def __init__(self):
+        super().__init__()
 
     # TODO
     # (d)	(3 points) (You must submit code for this question!) In a class called GraphSearch, implement ArrayList<Node> DFSRec(final Node start, final Node end), which recursively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
     def DFSRec(self, start_node, end_node):
+        
         print()
 
     # TODO
@@ -29,3 +35,9 @@ class GraphSearch:
     # (i)	(2 points) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTIterLinkedList(final Graph graph). This should run a BFT iteratively on a LinkedList. Your LinkedList should have 10,000 nodes.
     def BFTIterLinkedList(self, graph):
         print()
+
+if __name__ == "__main__":
+    graph = GraphSearch()
+    graph.createRandomUnweightedGraphIter(20)
+    graph.printGraph()
+    
