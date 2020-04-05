@@ -24,13 +24,13 @@ class Graph:
             for node in self.nodes: # Loop through the nodes
                 if node.val == target.val: # If the current node val is equal to the first node val
                     return node
-        elif target is not Node:
-            str(target)
+        elif target is not None:
+            target = str(target)
             for node in self.nodes: # Loop through the nodes
                 if node.val == target: # If the current node val is equal to the first node val
                     return node
         else:
-            print(target.val, "not found")
+            print(target, "not found")
             return None
 
 
@@ -72,16 +72,17 @@ class Graph:
 
     # (b)	(2 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called Graph createRandomUnweightedGraphIter(int n) that creates n random nodes with randomly assigned unweighted, bidirectional edges. You should use some of the methods you implemented in part (a). Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges!
     def createRandomUnweightedGraphIter(self, n=10):
-        graph = Graph()
+        # graph = Graph()
         
         for i in range(0, n):
-            graph.addNode(i)
+            self.addNode(i)
 
-        for i in range(0, n):
-            node1 = graph.nodes[i]
-            node2 = random.choice(graph.nodes)
-            graph.addBiDirectionalEdge(node1, node2)
-        return graph
+        for node in self.nodes:
+            connect = node
+            while connect is node:
+                connect = random.choice(self.nodes)
+            self.addBiDirectionalEdge(node, connect)
+        return self
 
 
     # (c)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called Graph createLinkedList(int n) that creates a Graph with n nodes where each node only has an edge to the next node created. For example, if you create nodes 1, 2, and 3, Node 1 only has an edge to Node 2, and Node 2 only has an edge to Node 3.
@@ -104,25 +105,29 @@ class Graph:
 
         print("\n\nConnections:")
         for node in self.nodes:
+            if int(node.val) < 10:
+                print('\n  ', node.val, ':', end=' ', sep='')
+            elif int(node.val) < 100:
+                print('\n ', node.val, ':', end=' ', sep='')
+            else:
+                print('\n', node.val, ':', end=' ', sep='')
             for conn in node.connections:
-                # print(conn, end=' ')
-
                 if conn[1] == 0: # If type is undirectional
-                    print(node.val, '---', conn[0].val)
+                    print('(', '--- ', conn[0].val, ')', end=' ', sep='')
                     if conn[2] is not None:
-                        print("W:", conn[2])
+                        print("[W:", conn[2] + ']')
                     
                 elif conn[1] == 1: # If type is directional
-                    print(node.val, '-->', conn[0].val)
+                    print('(', '--> ', conn[0].val, ')', end=' ', sep='')
                     if conn[2] is not None:
-                        print("W:", conn[2])
+                        print("[W:", conn[2] + ']')
 
                 elif conn[1] == 2: # If type is bidirectional
-                    if int(conn[0].val) > int(node.val):
-                        print(node.val, '<->', conn[0].val)
-                        if conn[2] is not None:
-                            print("W:", conn[2])
-            
+                    # if int(conn[0].val) > int(node.val):
+                    print('(', '<-> ', conn[0].val, ')', end=' ', sep='')
+                    if conn[2] is not None:
+                        print("[W:", conn[2] + ']')
+        print()
 
 if __name__ == "__main__":
     
