@@ -111,6 +111,7 @@ class Graph:
                 print('\n ', node.val, ':', end=' ', sep='')
             else:
                 print('\n', node.val, ':', end=' ', sep='')
+                
             for conn in node.connections:
                 if conn[1] == 0: # If type is undirectional
                     print('(', '--- ', conn[0].val, ')', end=' ', sep='')
