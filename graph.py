@@ -85,7 +85,7 @@ class Graph:
         for i in range(0, n):
             graph.addNode(i)
             if i > 0:
-                graph.nodes[i-1].connections.append([graph.nodes[i], 1, None])
+                graph.nodes[i-1].addEdge(graph.nodes[i], 1)
             prev_node = graph.nodes[i]
         
         return graph
@@ -108,19 +108,13 @@ class Graph:
             for conn in node.connections:
                 if conn[1] == 0: # If type is undirectional
                     print('(', '--- ', conn[0].val, ')', end=' ', sep='')
-                    if conn[2] is not None:
-                        print("[W:", conn[2] + ']')
-                    
                 elif conn[1] == 1: # If type is directional
                     print('(', '--> ', conn[0].val, ')', end=' ', sep='')
-                    if conn[2] is not None:
-                        print("[W:", conn[2] + ']')
-
                 elif conn[1] == 2: # If type is bidirectional
-                    # if int(conn[0].val) > int(node.val):
                     print('(', '<-> ', conn[0].val, ')', end=' ', sep='')
-                    if conn[2] is not None:
-                        print("[W:", conn[2] + ']')
+                
+                if conn[2] is not None:
+                    print("[W:", str(conn[2]) + ']', end='')
         print()
 
 if __name__ == "__main__":

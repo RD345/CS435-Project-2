@@ -18,7 +18,7 @@ class DirectedGraph(Graph):
         try:
             first_node.addEdge(second_node, 1) # Adds the edge.
         except:
-            print("An edge was not found")
+            print("A node could not be found.")
 
     # iii.	void removeDirectedEdge(final Node first, final Node second) - This removes a directed edge between first and second (but not vice versa).
     def removeDirectedEdge(self, first_node, second_node):
