@@ -2,5 +2,5 @@
 Project 2 - Graphs.pdf
 ~WRL0005.tmp
 ~WRL1939.tmp
-__pycache__/graph.cpython-37.pyc
-__pycache__/graph.cpython-37.pyc
+__pycache__*
+*pyc

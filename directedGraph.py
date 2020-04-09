@@ -9,14 +9,16 @@ class DirectedGraph(Graph):
 
     # i.	void addNode(final String nodeVal) - This adds a new node to the graph.
     def addNode(self, val):
-        super().addNode(val)
+        super().addNode(val) # Inherits from Graph.
 
 
     # ii.	void addDirectedEdge(final Node first, final Node second) - This adds a directed edge between first and second (but not vice versa).
     def addDirectedEdge(self, first_node, second_node):
-        first_node, second_node = self.getNode(first_node), self.getNode(second_node)
-        first_node.addEdge(second_node, 1)
-
+        first_node, second_node = self.getNode(first_node), self.getNode(second_node) # Gets the nodes.
+        try:
+            first_node.addEdge(second_node, 1) # Adds the edge.
+        except:
+            print("An edge was not found")
 
     # iii.	void removeDirectedEdge(final Node first, final Node second) - This removes a directed edge between first and second (but not vice versa).
     def removeDirectedEdge(self, first_node, second_node):

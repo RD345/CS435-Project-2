@@ -67,7 +67,7 @@ class Graph:
 
     # (b)	(2 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called Graph createRandomUnweightedGraphIter(int n) that creates n random nodes with randomly assigned unweighted, bidirectional edges. You should use some of the methods you implemented in part (a). Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges!
     def createRandomUnweightedGraphIter(self, n=10):        
-        for i in range(0, n):
+        for i in range(n):
             self.addNode(i)
 
         for node in self.nodes:
