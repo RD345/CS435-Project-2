@@ -92,7 +92,7 @@ def Dijkstras():
 # 3 Complete: a, b, c, ~d, ~e, ~f, ~g, ~i | Incomplete: h
 # 4 Complete: b, c,                       | Incomplete: d, e
 # 5 Complete: b, ~c d,                    | Incomplete: e
-# 6 Complete:                             | Incomplete: a, b, c, d
+# 6 Complete: a                           | Incomplete: b, c, d
 # 7 Complete:                             | Incomplete: a
 if __name__ == "__main__":
     # Graph:

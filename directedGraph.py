@@ -1,6 +1,6 @@
 # (b)	 (3 points) (You must submit code for this question!) Write a class DirectedGraph that supports the following methods. You may use similar code as Graph above (or better yet, use an Interface to group these classes together). EDIT: Note: You do not need to worry (yet) about a node only having two neighbors. If you do that here, that's fine, but that's not necessary yet. A node can have as many neighbors as it wants, as long as they're all directed (for example, a node could have an 85-degree forward neighbor, a 70-degree forward neighbor, and a 50-degree forward neighbor or something).
 from graph import Graph
-from node import Node
+
 
 class DirectedGraph(Graph):
 
