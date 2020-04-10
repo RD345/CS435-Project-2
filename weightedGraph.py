@@ -18,15 +18,32 @@ class WeightedGraph(Graph):
         except:
             print("A node could not be found.")
 
-    # iii.	void removeDirectedEdge(final Node first, final Node second) - This removes a directed, weighted edge between first and second (but not vice versa).
-    def removeDirectedEdge(self, connection):
-        self.connections.getNode(connection)
-        connection.removeEdge()
 
+    # iii.	void removeDirectedEdge(final Node first, final Node second) - This removes a directed, weighted edge between first and second (but not vice versa).
+    def removeDirectedEdge(self, node1, node2):
+        node1, node2 = self.getNode(node1), self.getNode(node2)
+        node1.removeEdge(node2)
+        
 
     # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
     def getNodes(self):
        super.getNodes()
 
+
 if __name__ == "__main__":
-    pass
+    print("Creating Graph...")
+    graph = WeightedGraph()
+    graph.addNode('0')
+    graph.addNode('1')
+    graph.addNode('2')
+
+    print("Adding Weighted Edge...")
+    graph.addWeightedEdge("0", "1", 3)
+    graph.printGraph()
+
+    print("\nRemoving an Edge...")
+    graph.removeDirectedEdge("0", "1")
+    graph.printGraph()
+
+    # graph = Main.createWeightedLinkedList(graph, 10, 2)
+    # graph.printGraph()

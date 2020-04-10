@@ -144,13 +144,19 @@ class GraphSearch(Graph):
             print("\nNo path found")
 
 if __name__ == "__main__":
-    # graph = GraphSearch()
-    graph = GraphSearch.createRandomUnweightedGraphIter(GraphSearch(), 20)
+    print("Creating Graph...")
+    graph = GraphSearch()
+    graph.addNode('0')
+    graph.addNode('1')
+    graph.addNode('2')
     graph.printGraph()
-    # graph.addUndirectedEdge("0", "19")
+
+    print("Adding Edge...")
+    graph.addUndirectedEdge("0", "1")
+
+    print("Doing Traversals...")
     # graph.DFSRec(0, 19)
     # graph.printResult(graph.DFSRec(0, 19))
     # graph.printResult(graph.DFSIter(0, 19))
-    # GraphSearch.printYellow("Test")
     graph.printResult(graph.BFTRec(0, 19))
     

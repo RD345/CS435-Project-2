@@ -1,9 +1,8 @@
 # Main file
 from node import Node
-import random
 
-
-class Graph:
+# 3(a)	(5 points) (You must submit code for this question!) Write a class Graph that supports the following methods:
+class Graph():
     
     def __init__(self):
 
@@ -45,13 +44,17 @@ class Graph:
 
         for conn in node1.connections: # Loop thorough the connections in the first node
             if conn[0] == node2:
-                node1.connections.remove(conn)
+                node1.removeEdge(conn)
 
         for conn in node2.connections: # Loop thorough the connections in the first node
             if conn[0] == node1:
-                node1.connections.remove(conn)
+                node1.removeEdge(conn)
         
+    # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
+    def getNodes(self):
+        return self.nodes
 
+    # Unused in this class, creates a bidirectional edged between two nodes:
     def addBiDirectionalEdge(self, node1, node2, weight=None):
         if node1 == None or node2 == None:
             print("Edge Creation failed")
@@ -59,37 +62,7 @@ class Graph:
 
         node1.connections.append([node2, 2, weight])
         node2.connections.append([node1, 2, weight])
-
-
-    # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
-    def getNodes(self):
-        return self.nodes
-
-    # (b)	(2 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called Graph createRandomUnweightedGraphIter(int n) that creates n random nodes with randomly assigned unweighted, bidirectional edges. You should use some of the methods you implemented in part (a). Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges!
-    def createRandomUnweightedGraphIter(self, n=10):        
-        for i in range(n):
-            self.addNode(i)
-
-        for node in self.nodes:
-            connect = node
-            while connect is node:
-                connect = random.choice(self.nodes)
-            self.addBiDirectionalEdge(node, connect)
-        return self
-
-
-    # (c)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called Graph createLinkedList(int n) that creates a Graph with n nodes where each node only has an edge to the next node created. For example, if you create nodes 1, 2, and 3, Node 1 only has an edge to Node 2, and Node 2 only has an edge to Node 3.
-    def createLinkedList(self, n=10):
-        graph = Graph()
-
-        for i in range(0, n):
-            graph.addNode(i)
-            if i > 0:
-                graph.nodes[i-1].addEdge(graph.nodes[i], 1)
-            prev_node = graph.nodes[i]
-        
-        return graph
-
+    
 
     def printGraph(self):
         print('\n' + "Graph:")
@@ -119,17 +92,19 @@ class Graph:
 
 if __name__ == "__main__":
     
-    print("Creating Random Unweighted Graph...")
+    print("Creating Graph...")
     graph = Graph()
-    graph = graph.createRandomUnweightedGraphIter(20)
-    print("\nAdding an Edge...")
+    graph.addNode('0')
+    graph.addNode('1')
+    graph.addNode('2')
     graph.addUndirectedEdge("0", "1")
     graph.printGraph()
 
-    # print("\nRemoving an Edge...")
-    # graph.removeUndirectedEdge("0", "1")
-    # graph.printGraph()
 
-    print("\nCreating LinkedList...")
-    graph = graph.createLinkedList(20)
+    print("\nRemoving an Edge...")
+    graph.removeUndirectedEdge("0", "1")
     graph.printGraph()
+
+    # print("\nCreating LinkedList...")
+    # graph = Main.createLinkedList(Graph(), 20)
+    # graph.printGraph()

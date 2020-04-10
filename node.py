@@ -14,9 +14,10 @@ class Node(object):
 
     # Remove and edge:
     def removeEdge(self, connected_node):
-        for conn in self.connections:
-            if conn[0] == connected_node:
+        for conn in self.connections: # Loop thorough the connections in the node
+            if conn[0] == connected_node: 
                 self.connections.remove(conn)
+
 
     # Reset the visited value:
     def resetVisted(self):
