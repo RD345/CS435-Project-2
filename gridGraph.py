@@ -25,10 +25,10 @@ class GridGraph(Graph):
     def addUndirectedEdge(self, node1, node2):
         node1, node2 = self.getNode(node1), self.getNode(node2) # Gets the nodes.
 
-        if node1.x == node2.x - 1 or node1.x == node2.x - 1 or node1.x == node2.x: # Checks if nodes are adjacent horizontally. 
+        if node1.x == node2.x - 1 or node1.x == node2.x + 1 or node1.x == node2.x: # Checks if nodes are adjacent horizontally. 
             node1.addEdge(node2, 0)
             node2.addEdge(node1, 0)
-        elif node1.y == node2.y - 1 or node1.y == node2.y - 1 or node1.y == node2.y: # Checks if nodes are adjacent vetically.  
+        elif node1.y == node2.y - 1 or node1.y == node2.y + 1 or node1.y == node2.y: # Checks if nodes are adjacent vetically.  
             node1.addEdge(node2, 0)
             node2.addEdge(node1, 0)
 
@@ -36,8 +36,11 @@ class GridGraph(Graph):
     # iii.	void removeUndirectedEdge(final GridNode first, final GridNode second) - This removes an undirected edge between first and second (and vice versa). 
     def removeUndirectedEdge(self, node1, node2):
         node1, node2 = self.getNode(node1), self.getNode(node2)
-        node1.removeEdge(node2)
-        node2.removeEdge(node1)
+        try:
+            node1.removeEdge(node2)
+            node2.removeEdge(node1)
+        except:
+            pass
 
 
     # iv.	HashSet<GridNode> getAllNodes() - This returns a set of all GridNodes in the graph. 
@@ -52,6 +55,9 @@ if __name__ == "__main__":
     graph.addGridNode(1, 0, 1)
     graph.addUndirectedEdge(0, 1)
     graph.printGraph()
+
+    print("\nRemoving Edge...")
     graph.removeUndirectedEdge(0, 1)
     graph.printGraph()
+
     print(graph.getAllNodes())
