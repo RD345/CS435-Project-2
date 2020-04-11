@@ -7,7 +7,6 @@ from gridGraph import GridGraph
 import random, math
 
 
-
 # 3(b)	(2 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called Graph createRandomUnweightedGraphIter(int n) that creates n random nodes with randomly assigned unweighted, bidirectional edges. You should use some of the methods you implemented in part (a). Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges!
 def createRandomUnweightedGraphIter(self, n=10): 
     self = Graph()       
@@ -23,10 +22,10 @@ def createRandomUnweightedGraphIter(self, n=10):
 
 
 # 3(c)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called Graph createLinkedList(int n) that creates a Graph with n nodes where each node only has an edge to the next node created. For example, if you create nodes 1, 2, and 3, Node 1 only has an edge to Node 2, and Node 2 only has an edge to Node 3.
-def createLinkedList(self, n=10):
+def createLinkedList(self, node_count=10):
     self = Graph()
 
-    for i in range(0, n):
+    for i in range(0, node_count):
         self.addNode(i)
         if i > 0:
             self.nodes[i-1].addEdge(self.nodes[i], 1)
@@ -34,6 +33,18 @@ def createLinkedList(self, n=10):
     
     return self
 
+
+# 3(h)	(3 points) (You may submit a screenshot for this question, but you’re not required to.) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTRecLinkedList(final Graph graph). This should run a BFT recursively on a LinkedList. Your LinkedList should have 10,000 nodes.
+def BFTRecLinkedList(self, node_count=10000):
+    linked_list = createLinkedList(Graph(), node_count)
+    return GraphSearch.BFTRec(linked_list, 0, node_count)
+
+
+# 3(i)	(2 points) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTIterLinkedList(final Graph graph). This should run a BFT iteratively on a LinkedList. Your LinkedList should have 10,000 nodes.
+def BFTIterLinkedList(self, node_count=10000):
+    linked_list = createLinkedList(Graph(), node_count)
+    linked_list.printGraph()
+    return GraphSearch.BFTIter(linked_list, 0, node_count-1)
 
 # 4(c)	(3 points) (You must submit code for this question!) In your Main class, create a non-recursive method called DirectedGraph createRandomDAGIter(final int n) that creates n random nodes with randomly assigned unweighted, directed edges. You should use some of the methods you implemented in part (a) of this question. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
 def createRandomDAGIter(self, node_count=10):
@@ -81,7 +92,7 @@ def createWeightedLinkedList(self, node_count=10, weight=1):
 
 # 5(e)	(10 points) (You must submit code for this question!) EDIT: Changed this to add it to your Main class. In a class called TreadmillMazeSolver, implement HashMap<Node, Integer> Dijkstra’s(final Node start). This should return a dictionary mapping each Node in the graph to the minimum value from start to get to node.
 # EDIT: This should NOT use Graph as an input! The only exception to this if you need your Graph instance to call some API like getNeighborNodes(final Node node). Other than this, you should not be using a Graph parameter for anything else.
-# TODO
+# TODO 5e
 def Dijkstras():
     pass
 
@@ -110,16 +121,19 @@ def createRandomGridGraph(self, node_count_sq=10):
 
     return self
 
-# (d) (10 points) (You must submit code for this question!) In Main, call createRandomGridGraph(100) and store sourceNode as the node at (0,0) and destNode as the node at (100,100). implement ArrayList<Node> astar(final sourceNode, final destNode). Ensure that you are using the heuristic you established in part (e). This should return an ordered list, from sourceNode and ending at destNode.
+
+# 6(d) (10 points) (You must submit code for this question!) In Main, call createRandomGridGraph(100) and store sourceNode as the node at (0,0) and destNode as the node at (100,100). implement ArrayList<Node> astar(final sourceNode, final destNode). Ensure that you are using the heuristic you established in part (e). This should return an ordered list, from sourceNode and ending at destNode.
+# TODO 6d
 def aStar(self, start, end):
     pass
 
+
 # Completion status:
-# 3 Complete: a, b, c, ~d, ~e, ~f, ~g, ~i | Incomplete: h
-# 4 Complete: b, c,                       | Incomplete: d, e
-# 5 Complete: b, c, d,                    | Incomplete: e
-# 6 Complete: a, b                        | Incomplete: c, d
-# 7 Complete:                             | Incomplete: a
+# 3 Complete: a, b, c, d, e, f, g, i, h     | Incomplete:
+# 4 Complete: b, c,                         | Incomplete: d, e
+# 5 Complete: b, c, d,                      | Incomplete: e
+# 6 Complete: a, b                          | Incomplete: d
+# 7 Complete:                               | Incomplete: a
 if __name__ == "__main__":
     # Graph:
     graph = Graph()
@@ -154,3 +168,9 @@ if __name__ == "__main__":
 
     gGraph = createRandomGridGraph(GridGraph(), 8)
     gGraph.printGraph()
+
+    # print(BFTRecLinkedList(None)) # Exceeds max recursion depth!
+    # print(BFTIterLinkedList(None, 10))
+    
+    GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(None, 100)) # Exceeds recursion limit if node_count is too high!
+    GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(None)) # Works great with default (10,000 nodes)
