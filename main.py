@@ -98,16 +98,16 @@ def createRandomGridGraph(self, node_count_sq=10):
 
     for row in self.nodes:
         for node in row:
-            if random.randint(0, 10) >= 7 and node.y > 0: # If left node, connect 50% of the time
+            if random.randint(0, 9) >= 7 and node.y > 0: # If left node, connects 50%(~49%) of the time
                 self.addBiDirectionalEdge(node, self.nodes[node.x][node.y - 1])
 
-            if random.randint(0, 10) >= 7 and node.y < node_count_sq - 1: # If right node, connect 50% of the time
+            if random.randint(0, 9) >= 7 and node.y < node_count_sq - 1: # If right node, connects 50%(~49%) of the time
                 self.addBiDirectionalEdge(node, self.nodes[node.x][node.y + 1])
 
-            if random.randint(0, 10) >= 7 and node.x > 0: # If top node, connect 50% of the time
+            if random.randint(0, 9) >= 7 and node.x > 0: # If top node, connects 50%(~49%) of the time
                 self.addBiDirectionalEdge(node, self.nodes[node.x - 1][node.y])
 
-            if random.randint(0, 10) >= 7 and node.x < node_count_sq - 1: # If bottom node, connect 50% of the time
+            if random.randint(0, 9) >= 7 and node.x < node_count_sq - 1: # If bottom node, connects 50%(~49%) of the time
                 self.addBiDirectionalEdge(node, self.nodes[node.x  + 1][node.y])
 
     return self
