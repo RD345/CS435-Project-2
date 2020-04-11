@@ -10,13 +10,41 @@ class Node(object):
 
     # Add an edge:
     def addEdge(self, connected_node, connection_type=0, weight=None):
-        self.connections.append([connected_node, connection_type, weight])
+        duplicate = False
+        for conn in self.connections:
+            if conn[0] == connected_node:
+                duplicate = True
+
+        if not duplicate:        
+            self.connections.append([connected_node, connection_type, weight])
 
     # Remove and edge:
     def removeEdge(self, connected_node):
         for conn in self.connections: # Loop thorough the connections in the node
             if conn[0] == connected_node: 
                 self.connections.remove(conn)
+
+
+    def printConnections(self):
+        for conn in self.connections: # Loop thorough the connections in the node
+            if conn[1] == 0: # If type is undirectional
+                    print('(', '--- ', conn[0].val, ')', end=' ', sep='')
+            elif conn[1] == 1: # If type is directional
+                print('(', '--> ', conn[0].val, ')', end=' ', sep='')
+            elif conn[1] == 2: # If type is bidirectional
+                print('(', '<-> ', conn[0].val, ')', end=' ', sep='')
+                
+            if conn[2] is not None:
+                print("[W:", str(conn[2]) + ']', end='')
+
+
+    def printVal(self):
+        if int(self.val) < 10:
+            print('\n  ', self.val, ':', end=' ', sep='')
+        elif int(self.val) < 100:
+            print('\n ', self.val, ':', end=' ', sep='')
+        else:
+            print('\n', self.val, ':', end=' ', sep='')
 
 
     # Reset the visited value:

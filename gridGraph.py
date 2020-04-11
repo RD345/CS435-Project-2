@@ -16,9 +16,17 @@ class GridNode(Node):
 # (a)	(5 points) You must submit code for this question! Write a class GridGraph that supports the following functions: 
 class GridGraph(Graph):
 
+    def __init__(self):
+
+        self.nodes = [[]] # Node list
+
     # i.	void addGridNode(final int x, final int y, final String nodeVal) - This adds a new GridNode to the graph with coordinates x and y. A GridNode keeps track of its value as well as its (x,y) coordinates. 
     def addGridNode(self, val, x, y):
-        self.nodes.append(GridNode(str(val), x, y))
+        try:
+            self.nodes[x].append(GridNode(str(val), x, y))
+        except IndexError:
+            self.nodes.append([])
+            self.nodes[x].append(GridNode(str(val), x, y))
 
 
     # ii.	void addUndirectedEdge(final GridNode first, final GridNode second) - This adds an undirected, unweighted edge between first and second (and vice versa) if first and second are neighbors. If they are not neighbors, do nothing.
@@ -46,6 +54,43 @@ class GridGraph(Graph):
     # iv.	HashSet<GridNode> getAllNodes() - This returns a set of all GridNodes in the graph. 
     def getAllNodes(self):
         return super().getNodes()
+
+
+    def getNode(self, target):
+        if target is Node:
+            return target
+        elif target is str:
+            for row in self.nodes:
+                for node in row: # Loop through the nodes
+                    if node.val == target: # If the current node val is equal to the first node val
+                        return node
+        elif target is not None:
+            target = str(target)
+            for row in self.nodes:
+                for node in row: # Loop through the nodes
+                    if node.val == target: # If the current node val is equal to the first node val
+                        return node
+        else:
+            print(target, "not found")
+            return None
+
+
+    def printGraph(self):
+        print('\n' + "Graph:")
+        for row in self.nodes:
+            for node in row:
+                print(node.val, end=' ')
+
+
+        print("\nConnections:")
+        for row in self.nodes:
+            for node in row:
+                print(node.val, ' ', '[', node.x, ',', node.y, ']', sep='', end=' ')
+                
+                node.printConnections()
+                print()
+
+        print()
 
 
 if __name__ == "__main__":

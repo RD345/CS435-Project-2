@@ -3,7 +3,8 @@ from graph import Graph
 from graphSearch import GraphSearch
 from directedGraph import DirectedGraph
 from weightedGraph import WeightedGraph
-import random
+from gridGraph import GridGraph
+import random, math
 
 
 
@@ -86,6 +87,31 @@ def createWeightedLinkedList(self, node_count=10, weight=1):
 def Dijkstras():
     pass
 
+# 6(b) (5 points) (You must submit code for this question!) In your Main class, create a non-recursive method called GridGraph createRandomGridGraph(int n) that creates n2 random nodes with randomly assigned unweighted, bidirectional edges. These nodes should be (0,0), (1,0), (2,0),..., (n,0),(0,1),(1,1),...(n,1),...,(n,n). Nodes should have a 50% chance of being connected to their neighbors, and a 0% chance of being connected to non-neighbors. For example, the Node at (1,1) should have a 50% chance of being connected to the node (0,1), 50% to (1,0), 50% to (2,1), and 50% to (1,2), but a 0% chance of being connected to (2,2). 
+def createRandomGridGraph(self, node_count_sq=10):
+    self = GridGraph()
+    rows = cols = node_count_sq
+
+    for row in range(rows):
+        for col in range(cols):
+            self.addGridNode(str(row*node_count_sq + col), row, col)
+
+    for row in self.nodes:
+        for node in row:
+            if random.randint(0, 10) >= 7 and node.y > 0: # If left node, connect 50% of the time
+                self.addBiDirectionalEdge(node, self.nodes[node.x][node.y - 1])
+
+            if random.randint(0, 10) >= 7 and node.y < node_count_sq - 1: # If right node, connect 50% of the time
+                self.addBiDirectionalEdge(node, self.nodes[node.x][node.y + 1])
+
+            if random.randint(0, 10) >= 7 and node.x > 0: # If top node, connect 50% of the time
+                self.addBiDirectionalEdge(node, self.nodes[node.x - 1][node.y])
+
+            if random.randint(0, 10) >= 7 and node.x < node_count_sq - 1: # If bottom node, connect 50% of the time
+                self.addBiDirectionalEdge(node, self.nodes[node.x  + 1][node.y])
+
+    return self
+
 
 
 # Completion status:
@@ -125,3 +151,6 @@ if __name__ == "__main__":
     # graph.printResult(graph.DFSIter(0, 19))
     # GraphSearch.printYellow("Test")
     # graph.printResult(graph.BFTRec(0, 19))
+
+    gGraph = createRandomGridGraph(GridGraph(), 4)
+    gGraph.printGraph()
