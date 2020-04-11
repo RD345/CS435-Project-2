@@ -52,7 +52,6 @@ def createRandomDAGIter(self, node_count=10):
     return self
 
 # 5(c)	(4 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called WeightedGraph createRandomCompleteWeightedGraph(final int n). This should make a complete weighted graph, which means that each node has a randomly weighted positive integer edge to every other edge in the graph. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your weighted edges, and keeping track of directionality! EDIT: You should have a total of n (n1) directed edges, each with a random edge weight to each other node.
-# TODO Needs connections between every node
 def createRandomCompleteWeightedGraph(self, node_count=10):
     self = WeightedGraph()
 
@@ -60,11 +59,10 @@ def createRandomCompleteWeightedGraph(self, node_count=10):
         self.addNode(n)
 
     for node in self.nodes:
-        connect = node
-        while connect is node: # Keeps going if it tries to connect to itself.
-            connect = random.choice(self.nodes)
-
-        self.addWeightedEdge(node.val, connect.val, random.randrange(0, node_count/5))
+        # Connect to every other node:
+        for connect in self.nodes: 
+            if node is not connect: # If not self
+                self.addWeightedEdge(node.val, connect.val, random.randrange(0, int(node_count/3))) # Creates edge with random weight in between 0 and one third the number of nodes
     
     return self
 
@@ -112,13 +110,15 @@ def createRandomGridGraph(self, node_count_sq=10):
 
     return self
 
-
+# (d) (10 points) (You must submit code for this question!) In Main, call createRandomGridGraph(100) and store sourceNode as the node at (0,0) and destNode as the node at (100,100). implement ArrayList<Node> astar(final sourceNode, final destNode). Ensure that you are using the heuristic you established in part (e). This should return an ordered list, from sourceNode and ending at destNode.
+def aStar(self, start, end):
+    pass
 
 # Completion status:
 # 3 Complete: a, b, c, ~d, ~e, ~f, ~g, ~i | Incomplete: h
 # 4 Complete: b, c,                       | Incomplete: d, e
-# 5 Complete: b, ~c d,                    | Incomplete: e
-# 6 Complete: a                           | Incomplete: b, c, d
+# 5 Complete: b, c, d,                    | Incomplete: e
+# 6 Complete: a, b                        | Incomplete: c, d
 # 7 Complete:                             | Incomplete: a
 if __name__ == "__main__":
     # Graph:
@@ -152,5 +152,5 @@ if __name__ == "__main__":
     # GraphSearch.printYellow("Test")
     # graph.printResult(graph.BFTRec(0, 19))
 
-    gGraph = createRandomGridGraph(GridGraph(), 4)
+    gGraph = createRandomGridGraph(GridGraph(), 8)
     gGraph.printGraph()

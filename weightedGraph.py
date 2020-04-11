@@ -1,9 +1,7 @@
 from graph import Graph
 
 
-# (b)	(3 points) (You must submit code for this question!) Write a class WeightedGraph that supports the following methods. You may use similar code as Graph or DirectedGraph above (or better yet, use an Interface to group these classes together).
-
-# TODO
+# 5(b)	(3 points) (You must submit code for this question!) Write a class WeightedGraph that supports the following methods. You may use similar code as Graph or DirectedGraph above (or better yet, use an Interface to group these classes together).
 class WeightedGraph(Graph):
     # i.	void addNode(final String nodeVal) - This adds a new node to the graph.
     def addNode(self, val):
@@ -43,6 +41,3 @@ if __name__ == "__main__":
     print("\nRemoving an Edge...")
     graph.removeDirectedEdge("0", "1")
     graph.printGraph()
-
-    # graph = Main.createWeightedLinkedList(graph, 10, 2)
-    # graph.printGraph()
