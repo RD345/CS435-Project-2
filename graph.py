@@ -13,55 +13,55 @@ class Graph():
     def addNode(self, val):
         self.nodes.append(Node(str(val)))
 
+    # Function to get a Node object. If the target is a node, it will just return it. If the target is a node value, whether it is a string or int, it will search for it and then return the Node object.
     def getNode(self, target):
-        if target is Node:
+        if target is Node: # If already a node, return it:
             return target
-        elif target is str:
+        elif target is str: # if target is a string, find the node with that value:
             for node in self.nodes: # Loop through the nodes
-                if node.val == target: # If the current node val is equal to the first node val
+                if node.val == target: # If the current node value is the target value:
                     return node
         elif target is not None:
             target = str(target)
             for node in self.nodes: # Loop through the nodes
                 if node.val == target: # If the current node val is equal to the first node val
                     return node
-        else:
+        else: # Should ideally never be called:
             print(target, "not found")
             return None
 
 
     # ii.	void addUndirectedEdge(final Node first, final Node second) - This adds an undirected edge between first and second (and vice versa).
     def addUndirectedEdge(self, node1, node2, weight=None):
-        node1, node2 = self.getNode(node1), self.getNode(node2)
+        node1, node2 = self.getNode(node1), self.getNode(node2) # Ensures that input nodes are nodes, and if they are values, it gets the nodes.
         
-        node1.addEdge(node2, 0, weight)
-        node2.addEdge(node1, 0, weight)
+        node1.addEdge(node2, 0, weight) # Adds the edge from the first node to the second.
+        node2.addEdge(node1, 0, weight) # Adds the edge form the second node to the first.
 
-    
+
+    # Used for certain graph creations, creates a bidirectional edge between two nodes with an optional weight:
+    def addBiDirectionalEdge(self, node1, node2, weight=None):
+        node1, node2 = self.getNode(node1), self.getNode(node2) # Ensures that input nodes are nodes, and if they are values, it gets the nodes.
+
+        node1.addEdge(node2, 2, weight) # Adds the edge from the first node to the second.
+        node2.addEdge(node1, 2, weight) # Adds the edge from the second node to the first.
+
+
     # iii.	void removeUndirectedEdge(final Node first, final Node second) - This removes an undirected edge between first and second (and vice versa).
     def removeUndirectedEdge(self, node1, node2):
         node1, node2 = self.getNode(node1), self.getNode(node2)
 
-        for conn in node1.connections: # Loop thorough the connections in the first node
+        for conn in node1.connections: # Loops thorough the connections in the first node:
             if conn[0] == node2:
-                node1.removeEdge(conn)
+                node1.removeEdge(conn) # Removes the connection if found.
 
-        for conn in node2.connections: # Loop thorough the connections in the first node
+        for conn in node2.connections: # Loops thorough the connections in the second node:
             if conn[0] == node1:
-                node1.removeEdge(conn)
+                node1.removeEdge(conn) # Removes the connection if found.
         
     # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
     def getNodes(self):
-        return self.nodes
-
-    # Unused in this class, creates a bidirectional edged between two nodes:
-    def addBiDirectionalEdge(self, node1, node2, weight=None):
-        if node1 == None or node2 == None:
-            print("Edge Creation failed")
-            return
-
-        node1.addEdge(node2, 2, weight)
-        node2.addEdge(node1, 2, weight)
+        return set(self.nodes)
     
 
     def printGraph(self):

@@ -14,7 +14,7 @@ class GraphSearch(Graph):
             curr_node.visited = True
             dfs_arr.append(curr_node)
 
-            if curr_node.val == str(end_node):
+            if curr_node.val == str(end_node): #  Checks if the string value of the node is equal to the stringified end_node. 
                 found = True
             else:
                 for neighbor in curr_node.connections:
@@ -31,32 +31,28 @@ class GraphSearch(Graph):
 
     # 3(e)	(5 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> DFSIter(final Node start, final Node end), which iteratively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
     def DFSIter(self, start_node, end_node):
-        stack = []
-        visited = []
+        stack, visited = [], []
         found = False
-        curr_node = self.getNode(start_node)
+        curr_node = self.getNode(start_node) # Ensures that start_node is a Node object.
         
-        curr_node.visited = True # Mark visited
-        # visited.append(curr_node)
-        stack.append(curr_node)
+        curr_node.visited = True # Mark current node visited.
+        stack.append(curr_node) # Stacks the node.
 
         while len(stack) > 0: # While there are nodes in the stack
-            curr_node = stack.pop()
-            visited.append(curr_node)
-            curr_node.visited = True # Mark visited
+            curr_node = stack.pop() # Pops the top node and makes it the current one.
+            visited.append(curr_node) # Add it to the visited list.
+            curr_node.visited = True # Marks the node visited
 
             if curr_node.val == str(end_node):
-                # curr_node.visited = True # Mark visited
                 return visited
             else:
-                for neighbor in curr_node.connections:
+                for neighbor in curr_node.connections: # Loops through the neighbors:
                     if not neighbor[0].visited:
-                        stack.append(neighbor[0])
-                        # visited.append(neighbor[0])
-                        # curr_node.visited = True # Mark visited
-        if found:
+                        stack.append(neighbor[0]) # Stacks the unvisited neighbors.
+                       
+        if found: # If the end_node was found, return the visited list:
             return visited
-        else:
+        else: # Otherwise return False:
             return False
 
 

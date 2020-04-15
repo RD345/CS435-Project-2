@@ -28,7 +28,7 @@ class DirectedGraph(Graph):
 
     # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
     def getAllNodes(self):
-        return self.nodes
+        return super().getNodes() # Inherits function from Graph.
 
 if __name__ == "__main__":
     print("Creating directed Graph...")
@@ -41,3 +41,4 @@ if __name__ == "__main__":
     graph.printGraph()
     graph.removeDirectedEdge('0', '1')
     graph.printGraph()
+    print(graph.getAllNodes())
