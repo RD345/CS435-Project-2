@@ -4,20 +4,20 @@ from graphSearch import GraphSearch
 from directedGraph import DirectedGraph
 from weightedGraph import WeightedGraph
 from gridGraph import GridGraph
-import random, math
+import random, math, time
 
 
 # 3(b)	(2 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called Graph createRandomUnweightedGraphIter(int n) that creates n random nodes with randomly assigned unweighted, bidirectional edges. You should use some of the methods you implemented in part (a). Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges!
-def createRandomUnweightedGraphIter(self, n=10): 
+def createRandomUnweightedGraphIter(self, node_count=10): 
     self = Graph()       
-    for i in range(n):
-        self.addNode(i)
+    for n in range(node_count):
+        self.addNode(n)
 
     for node in self.nodes:
         connect = node
         while connect is node:
             connect = random.choice(self.nodes)
-        self.addBiDirectionalEdge(node, connect)
+        self.addBiDirectionalEdge(node.val, connect.val)
     return self
 
 
@@ -29,7 +29,6 @@ def createLinkedList(self, node_count=10):
         self.addNode(i)
         if i > 0:
             self.nodes[i-1].addEdge(self.nodes[i], 1)
-        prev_node = self.nodes[i]
     
     return self
 
@@ -85,7 +84,6 @@ def createWeightedLinkedList(self, node_count=10, weight=1):
         self.addNode(i)
         if i > 0:
             self.nodes[i-1].addEdge(self.nodes[i], 1, weight)
-        prev_node = self.nodes[i]
     
     return self
 
@@ -108,16 +106,20 @@ def createRandomGridGraph(self, node_count_sq=10):
     for row in self.nodes:
         for node in row:
             if random.randint(0, 9) >= 7 and node.y > 0: # If left node, connects 50%(~49%) of the time
-                self.addBiDirectionalEdge(node, self.nodes[node.x][node.y - 1])
+                self.addUndirectedEdge(node.val, self.nodes[node.x][node.y - 1].val)
+                self.addUndirectedEdge(self.nodes[node.x][node.y - 1].val, node.val)
 
             if random.randint(0, 9) >= 7 and node.y < node_count_sq - 1: # If right node, connects 50%(~49%) of the time
-                self.addBiDirectionalEdge(node, self.nodes[node.x][node.y + 1])
+                self.addUndirectedEdge(node.val, self.nodes[node.x][node.y + 1].val)
+                self.addUndirectedEdge(self.nodes[node.x][node.y + 1].val, node.val)
 
             if random.randint(0, 9) >= 7 and node.x > 0: # If top node, connects 50%(~49%) of the time
-                self.addBiDirectionalEdge(node, self.nodes[node.x - 1][node.y])
+                self.addUndirectedEdge(node.val, self.nodes[node.x - 1][node.y].val)
+                self.addUndirectedEdge(self.nodes[node.x - 1][node.y].val, node.val)
 
             if random.randint(0, 9) >= 7 and node.x < node_count_sq - 1: # If bottom node, connects 50%(~49%) of the time
-                self.addBiDirectionalEdge(node, self.nodes[node.x  + 1][node.y])
+                self.addUndirectedEdge(node.val, self.nodes[node.x  + 1][node.y].val)
+                self.addUndirectedEdge(self.nodes[node.x  + 1][node.y].val, node.val)
 
     return self
 
@@ -135,7 +137,8 @@ def aStar(self, start, end):
 # 6 Complete: a, b                          | Incomplete: d
 # 7 Complete:                               | Incomplete: a
 if __name__ == "__main__":
-    # Graph:
+    start = time.perf_counter()
+    # Graph: 
     graph = Graph()
     graph.addNode('0')
     graph.addNode('1')
@@ -155,9 +158,9 @@ if __name__ == "__main__":
     # Weighted Linked List:
     wll = createWeightedLinkedList(graph, 10, 2)
     wll.printGraph()
-
+    
     # graph = GraphSearch()
-    graph = createRandomUnweightedGraphIter(GraphSearch(), 20)
+    graph = createRandomUnweightedGraphIter(GraphSearch(), 200)
     graph.printGraph()
     # graph.addUndirectedEdge("0", "19")
     # graph.DFSRec(0, 19)
@@ -170,7 +173,9 @@ if __name__ == "__main__":
     gGraph.printGraph()
 
     # print(BFTRecLinkedList(None)) # Exceeds max recursion depth!
-    # print(BFTIterLinkedList(None, 10))
+    # GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(None, 10000))
     
-    GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(None, 100)) # Exceeds recursion limit if node_count is too high!
-    GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(None)) # Works great with default (10,000 nodes)
+    # GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(None, 100)) # Exceeds recursion limit if node_count is too high!
+    # GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(None)) # Works great with default (10,000 nodes)
+
+    print("Main took:", f"{time.perf_counter()-start:.3}", "seconds") # Prints the time taken for main to run.

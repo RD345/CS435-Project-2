@@ -29,7 +29,7 @@ class Node(object):
     def printConnections(self):
         for conn in self.connections: # Loop thorough the connections in the node
             if conn[1] == 0: # If type is undirectional
-                    print('(', '--- ', conn[0].val, ')', end=' ', sep='')
+                print('(', '--- ', conn[0].val, ')', end=' ', sep='')
             elif conn[1] == 1: # If type is directional
                 print('(', '--> ', conn[0].val, ')', end=' ', sep='')
             elif conn[1] == 2: # If type is bidirectional

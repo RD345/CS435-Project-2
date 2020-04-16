@@ -32,7 +32,9 @@ class GridGraph(Graph):
     # ii.	void addUndirectedEdge(final GridNode first, final GridNode second) - This adds an undirected, unweighted edge between first and second (and vice versa) if first and second are neighbors. If they are not neighbors, do nothing.
     def addUndirectedEdge(self, node1, node2):
         node1, node2 = self.getNode(node1), self.getNode(node2) # Gets the nodes.
-
+        if node1 == None or node2 == None:
+            print("Node is none.")
+            return
         if node1.x == node2.x - 1 or node1.x == node2.x + 1 or node1.x == node2.x: # Checks if nodes are adjacent horizontally. 
             node1.addEdge(node2, 0)
             node2.addEdge(node1, 0)
@@ -53,24 +55,30 @@ class GridGraph(Graph):
 
     # iv.	HashSet<GridNode> getAllNodes() - This returns a set of all GridNodes in the graph. 
     def getAllNodes(self):
-        return super().getNodes()
+        nodes = set()
+        for row in self.nodes: # Loop through the rows
+            for node in row:
+                nodes.add(node)
+        return nodes
 
 
+    # Function to get a Node object. If the target is a node, it will just return it. If the target is a node value, whether it is a string or int, it will search for it and then return the Node object.
     def getNode(self, target):
-        if target is Node:
+        if target is GridNode: # If already a GridNode, return it:
             return target
-        elif target is str:
-            for row in self.nodes:
-                for node in row: # Loop through the nodes
-                    if node.val == target: # If the current node val is equal to the first node val
-                        return node
-        elif target is not None:
+        elif target is not None: # if target is a string or int, find the node with that value:
             target = str(target)
-            for row in self.nodes:
-                for node in row: # Loop through the nodes
-                    if node.val == target: # If the current node val is equal to the first node val
-                        return node
-        else:
+            try: # Uses the advantage of an array to directly check the index in O(1) time:
+                for row in self.nodes: # Loop through the rows
+                    for node in row:
+                        if str(node.val) == target:
+                            return node
+            except: # If the index fails, revert to looping through to find the node:
+                for row in self.nodes: # Loop through the rows
+                    for node in row:
+                        if node.val == target: # If the current node val is equal to the first node val
+                            return node
+        else: # Should ideally never be called:
             print(target, "not found")
             return None
 
@@ -99,7 +107,9 @@ if __name__ == "__main__":
     graph.addGridNode(0, 0, 0)
     graph.addGridNode(1, 0, 1)
     graph.addUndirectedEdge(0, 1)
+    graph.addUndirectedEdge(0, 1)
     graph.printGraph()
+    print(graph.getNode(1).val)
 
     print("\nRemoving Edge...")
     graph.removeUndirectedEdge(0, 1)
