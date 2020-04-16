@@ -34,31 +34,31 @@ class Graph():
     # ii.	void addUndirectedEdge(final Node first, final Node second) - This adds an undirected edge between first and second (and vice versa).
     def addUndirectedEdge(self, node1, node2, weight=None):
         node1, node2 = self.getNode(node1), self.getNode(node2) # Ensures that input nodes are nodes, and if they are values, it gets the nodes.
-        
-        node1.addEdge(node2, 0, weight) # Adds the edge from the first node to the second.
-        node2.addEdge(node1, 0, weight) # Adds the edge form the second node to the first.
+        try:
+            node1.addEdge(node2, 0, weight) # Adds the edge from the first node to the second.
+            node2.addEdge(node1, 0, weight) # Adds the edge form the second node to the first.
+        except:
+            print("A node could not be found.")
 
 
     # Used for certain graph creations, creates a bidirectional edge between two nodes with an optional weight:
     def addBiDirectionalEdge(self, node1, node2, weight=None):
         node1, node2 = self.getNode(node1), self.getNode(node2) # Ensures that input nodes are nodes, and if they are values, it gets the nodes.
-
-        node1.addEdge(node2, 2, weight) # Adds the edge from the first node to the second.
-        node2.addEdge(node1, 2, weight) # Adds the edge from the second node to the first.
+        try:
+            node1.addEdge(node2, 2, weight) # Adds the edge from the first node to the second.
+            node2.addEdge(node1, 2, weight) # Adds the edge from the second node to the first.
+        except:
+            print("A node could not be found.")
 
 
     # iii.	void removeUndirectedEdge(final Node first, final Node second) - This removes an undirected edge between first and second (and vice versa).
     def removeUndirectedEdge(self, node1, node2):
         node1, node2 = self.getNode(node1), self.getNode(node2)
-
-        for conn in node1.connections: # Loops thorough the connections in the first node:
-            if conn[0] == node2:
-                node1.removeEdge(conn) # Removes the connection if found.
-
-        for conn in node2.connections: # Loops thorough the connections in the second node:
-            if conn[0] == node1:
-                node1.removeEdge(conn) # Removes the connection if found.
         
+        node1.removeEdge(node2) # Removes the connection if found.
+        node1.removeEdge(node1) # Removes the connection if found.
+       
+
     # iv.	HashSet<Node> getAllNodes() - This returns a set of all Nodes in the graph.
     def getNodes(self):
         return set(self.nodes)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
 
     print("\nRemoving an Edge...")
-    graph.removeUndirectedEdge("0", "1")
+    graph.removeUndirectedEdge("0", "5")
     graph.printGraph()
 
     # print("\nCreating LinkedList...")

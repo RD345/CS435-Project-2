@@ -8,15 +8,16 @@ class Node(object):
         self.connections = [] # Connection format: [(connected Node node), (int edge_type 0=undirected, 1=directional, 2=bidirectional), (int weight)]
         self.visited = False
 
-    # Add an edge:
+    # Add an edge. If the inputs were not nodes in the first place, this cannot be called:
     def addEdge(self, connected_node, connection_type=0, weight=None):
         duplicate = False
         for conn in self.connections:
             if conn[0] == connected_node:
                 duplicate = True
 
-        if not duplicate:        
-            self.connections.append([connected_node, connection_type, weight])
+        if not duplicate:    
+            self.connections.append([connected_node, connection_type, weight]) 
+
 
     # Remove and edge:
     def removeEdge(self, connected_node):
