@@ -17,7 +17,7 @@ class Graph():
 
     # Function to get a Node object. If the target is a node, it will just return it. If the target is a node value, whether it is a string or int, it will search for it and then return the Node object.
     def getNode(self, target):
-        if target is Node: # If already a node, return it:
+        if isinstance(target, Node): # If already a node, return it:
             return target
         elif target is not None: # if target is a string or int, find the node with that value:
             target = str(target)
@@ -107,4 +107,3 @@ if __name__ == "__main__":
 
 
     print("Main took:", f"{time.perf_counter()-start:.3}", "seconds") # Prints the time taken for main to run.
-    

@@ -64,7 +64,7 @@ class GridGraph(Graph):
 
     # Function to get a Node object. If the target is a node, it will just return it. If the target is a node value, whether it is a string or int, it will search for it and then return the Node object.
     def getNode(self, target):
-        if target is GridNode: # If already a GridNode, return it:
+        if isinstance(target, GridNode): # If already a GridNode, return it:
             return target
         elif target is not None: # if target is a string or int, find the node with that value:
             target = str(target)
@@ -116,4 +116,3 @@ if __name__ == "__main__":
     graph.printGraph()
 
     print(graph.getAllNodes())
-    
