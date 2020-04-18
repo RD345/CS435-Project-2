@@ -17,7 +17,8 @@ def createRandomUnweightedGraphIter(node_count=10):
         connect = node
         while connect is node:
             connect = random.choice(self.nodes)
-        self.addBiDirectionalEdge(node.val, connect.val)
+        node.addEdge(connect, 2) # Adds the edge from the first node to the second.
+        connect.addEdge(node, 2) # Adds the edge from the second node to the first.
     return self
 
 
@@ -163,22 +164,24 @@ if __name__ == "__main__":
     wll.printGraph()
     
     # Random unweighted graph:
+    print("Random Unwighted graph:")
     graph = createRandomUnweightedGraphIter(200)
     graph.printGraph()
 
+    # Gridgraph:
+    print("Grid Graph:")
+    gGraph = createRandomGridGraph(8)
+    gGraph.printGraph()
+    
     # Graph searches:
+    print("Graph Searches:")
     GraphSearch.printResult(GraphSearch(), GraphSearch.BFTIter(graph, 0, 2))
     GraphSearch.printResult(GraphSearch(), GraphSearch.DFSIter(createRandomUnweightedGraphIter(200), 0, 199))
     GraphSearch.printYellow("Test")
-   
-    # Gridgraph:
-    gGraph = createRandomGridGraph(8)
-    gGraph.printGraph()
-
     # print(BFTRecLinkedList()) # Exceeds max recursion depth!
     GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(100)) # BFT on a linked list
-    
     GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(100)) # Exceeds recursion limit if node_count is too high!
     # GraphSearch.printResult(GraphSearch(), BFTIterLinkedList()) # Works great with default (10,000 nodes), spams the console!
+
 
     print("Main took:", f"{time.perf_counter()-start:.3}", "seconds") # Prints the time taken for main to run.

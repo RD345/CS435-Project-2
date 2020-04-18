@@ -19,13 +19,14 @@ class Node(object):
             self.connections.append([connected_node, connection_type, weight]) 
 
 
-    # Remove and edge:
+    # Remove an edge:
     def removeEdge(self, connected_node):
         for conn in self.connections: # Loop thorough the connections in the node
             if conn[0] == connected_node: 
                 self.connections.remove(conn)
 
 
+    # Prints the connections of the node, showing the type of connection:
     def printConnections(self):
         for conn in self.connections: # Loop thorough the connections in the node
             if conn[1] == 0: # If type is undirectional

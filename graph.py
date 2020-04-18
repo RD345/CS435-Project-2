@@ -43,16 +43,6 @@ class Graph():
             print("An undirected edge creation failed.")
 
 
-    # Used for certain graph creations, creates a bidirectional edge between two nodes with an optional weight:
-    def addBiDirectionalEdge(self, node1, node2, weight=None):
-        try:
-            node1, node2 = self.getNode(node1), self.getNode(node2) # Ensures that input nodes are nodes, and if they are values, it gets the nodes.
-            node1.addEdge(node2, 2, weight) # Adds the edge from the first node to the second.
-            node2.addEdge(node1, 2, weight) # Adds the edge from the second node to the first.
-        except:
-            print("A bidirectional edge creation failed.")
-
-
     # iii.	void removeUndirectedEdge(final Node first, final Node second) - This removes an undirected edge between first and second (and vice versa).
     def removeUndirectedEdge(self, node1, node2):
         try:
