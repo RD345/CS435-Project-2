@@ -125,6 +125,7 @@ class GraphSearch(Graph):
         else:
             print("\nNo path found")
 
+
 if __name__ == "__main__":
     print("Creating Graph...")
     graph = GraphSearch()
@@ -141,7 +142,7 @@ if __name__ == "__main__":
     # graph.DFSRec(0, 19)
     # Only one will work at a time due to visiting not being reset:
     graph.printResult(graph.DFSRec(0, 2))
-    # graph.printResult(graph.DFSIter(0, 2))
+    graph.printResult(graph.DFSIter(0, 2))
     # graph.printResult(graph.BFTRec(0, 2)) 
     # graph.printResult(graph.BFTIter(0, 2))
     

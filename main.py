@@ -45,6 +45,7 @@ def BFTIterLinkedList(self, node_count=10000):
     linked_list.printGraph()
     return GraphSearch.BFTIter(linked_list, 0, node_count-1)
 
+
 # 4(c)	(3 points) (You must submit code for this question!) In your Main class, create a non-recursive method called DirectedGraph createRandomDAGIter(final int n) that creates n random nodes with randomly assigned unweighted, directed edges. You should use some of the methods you implemented in part (a) of this question. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
 def createRandomDAGIter(self, node_count=10):
     self = DirectedGraph()
@@ -61,6 +62,7 @@ def createRandomDAGIter(self, node_count=10):
     
     return self
 
+
 # 5(c)	(4 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called WeightedGraph createRandomCompleteWeightedGraph(final int n). This should make a complete weighted graph, which means that each node has a randomly weighted positive integer edge to every other edge in the graph. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your weighted edges, and keeping track of directionality! EDIT: You should have a total of n (n1) directed edges, each with a random edge weight to each other node.
 def createRandomCompleteWeightedGraph(self, node_count=10):
     self = WeightedGraph()
@@ -75,6 +77,7 @@ def createRandomCompleteWeightedGraph(self, node_count=10):
                 self.addWeightedEdge(node.val, connect.val, random.randrange(0, int(node_count/3))) # Creates edge with random weight in between 0 and one third the number of nodes
     
     return self
+
 
 # 5(d)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called WeightedGraph createLinkedList(final int n). This should make a weighted graph with n nodes, each having a single edge to the next node of uniform weight (perhaps weight 1). This can look very similar to the method you implemented in part 3c. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
 def createWeightedLinkedList(self, node_count=10, weight=1):
@@ -93,6 +96,7 @@ def createWeightedLinkedList(self, node_count=10, weight=1):
 # TODO 5e
 def Dijkstras():
     pass
+
 
 # 6(b) (5 points) (You must submit code for this question!) In your Main class, create a non-recursive method called GridGraph createRandomGridGraph(int n) that creates n2 random nodes with randomly assigned unweighted, bidirectional edges. These nodes should be (0,0), (1,0), (2,0),..., (n,0),(0,1),(1,1),...(n,1),...,(n,n). Nodes should have a 50% chance of being connected to their neighbors, and a 0% chance of being connected to non-neighbors. For example, the Node at (1,1) should have a 50% chance of being connected to the node (0,1), 50% to (1,0), 50% to (2,1), and 50% to (1,2), but a 0% chance of being connected to (2,2). 
 def createRandomGridGraph(self, node_count_sq=10):
@@ -166,7 +170,7 @@ if __name__ == "__main__":
     # graph.DFSRec(0, 19)
     # graph.printResult(graph.DFSRec(0, 19))
     # graph.printResult(graph.DFSIter(0, 19))
-    # GraphSearch.printYellow("Test")
+    GraphSearch.printYellow(None, "Test")
     # graph.printResult(graph.BFTRec(0, 19))
 
     gGraph = createRandomGridGraph(GridGraph(), 8)
