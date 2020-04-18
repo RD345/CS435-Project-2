@@ -10,7 +10,7 @@ class GraphSearch(Graph):
     # 3(d)	(3 points) (You must submit code for this question!) In a class called GraphSearch, implement ArrayList<Node> DFSRec(final Node start, final Node end), which recursively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
     def DFSRec(self, start_node=0, end_node=1):
         
-        def DFSHelper(dfs_arr, curr_node, found=False):
+        def __DFSHelper(dfs_arr, curr_node, found=False):
             curr_node.visited = True
             dfs_arr.append(curr_node)
 
@@ -19,13 +19,13 @@ class GraphSearch(Graph):
             else:
                 for neighbor in curr_node.connections:
                     if neighbor and not found and not neighbor[0].visited:
-                        dfs_arr, found = DFSHelper(dfs_arr, neighbor[0], found)
+                        dfs_arr, found = __DFSHelper(dfs_arr, neighbor[0], found)
 
             return dfs_arr, found
         
         start_node = self.getNode(start_node)
         dfs = []
-        found = DFSHelper(dfs, start_node)
+        found = __DFSHelper(dfs, start_node)
         return dfs
 
 
@@ -59,7 +59,7 @@ class GraphSearch(Graph):
     # 3(f)	(3 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> BFTRec(final Graph graph), which recursively returns an ArrayList of the Nodes in the Graph in a valid Breadth-First Traversal order.
     def BFTRec(self, start_node=0, end_node=1):
 
-        def BFTHelper(visited, curr_node, found=False):
+        def __BFTHelper(visited, curr_node, found=False):
             curr_node.visited = True
             visited.append(curr_node)
            
@@ -68,13 +68,13 @@ class GraphSearch(Graph):
             else:
                 for neighbor in curr_node.connections:
                     if neighbor and not found and not neighbor[0].visited:
-                        visited, found = BFTHelper(visited, neighbor[0], found)
+                        visited, found = __BFTHelper(visited, neighbor[0], found)
 
             return visited, found
         
         start_node, end_node = self.getNode(start_node), str(end_node)
         bft = []
-        BFTHelper(bft, start_node)
+        __BFTHelper(bft, start_node)
         return bft
 
 
