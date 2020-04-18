@@ -85,7 +85,6 @@ class GraphSearch(Graph):
         end_node = str(end_node)
         
         curr_node.visited = True # Mark visited
-        # visited.append(curr_node)
         queue.append(curr_node)
 
         # While there are nodes in the queue:
@@ -93,7 +92,6 @@ class GraphSearch(Graph):
             curr_node = queue.pop(0) # Gets the first node in the queue
             curr_node.visited = True # Marks the node as visited
             visited.append(curr_node) # Adds it to the visited list
-            # print(curr_node.val)
 
             if curr_node.val == end_node:
                 return visited
@@ -102,8 +100,6 @@ class GraphSearch(Graph):
                     neighbor = connection[0]
                     if not neighbor.visited:
                         queue.append(neighbor)
-                        # visited.append(neighbor[0])
-                        # curr_node.visited = True # Mark visited
        
         return False
 
@@ -116,12 +112,6 @@ class GraphSearch(Graph):
                 print(union[i].val, end='->')
 
             GraphSearch.printYellow(GraphSearch(), union[len(union)-1].val)
-            
-            # for i in reversed(range (0, len(union))):
-            #     if i is 0:
-            #         self.printYellow(union[i].val)
-            #     else:
-            #         print(union[i].val, end='->')
         else:
             print("\nNo path found")
 

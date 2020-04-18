@@ -47,7 +47,7 @@ def BFTIterLinkedList(self, node_count=10000):
 
 
 # 4(c)	(3 points) (You must submit code for this question!) In your Main class, create a non-recursive method called DirectedGraph createRandomDAGIter(final int n) that creates n random nodes with randomly assigned unweighted, directed edges. You should use some of the methods you implemented in part (a) of this question. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
-def createRandomDAGIter(self, node_count=10):
+def createRandomDAGIter(node_count=10):
     self = DirectedGraph()
     # Create the nodes:
     for n in range(node_count):
@@ -64,7 +64,7 @@ def createRandomDAGIter(self, node_count=10):
 
 
 # 5(c)	(4 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called WeightedGraph createRandomCompleteWeightedGraph(final int n). This should make a complete weighted graph, which means that each node has a randomly weighted positive integer edge to every other edge in the graph. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your weighted edges, and keeping track of directionality! EDIT: You should have a total of n (n1) directed edges, each with a random edge weight to each other node.
-def createRandomCompleteWeightedGraph(self, node_count=10):
+def createRandomCompleteWeightedGraph(node_count=10):
     self = WeightedGraph()
 
     for n in range(node_count):
@@ -80,7 +80,7 @@ def createRandomCompleteWeightedGraph(self, node_count=10):
 
 
 # 5(d)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called WeightedGraph createLinkedList(final int n). This should make a weighted graph with n nodes, each having a single edge to the next node of uniform weight (perhaps weight 1). This can look very similar to the method you implemented in part 3c. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
-def createWeightedLinkedList(self, node_count=10, weight=1):
+def createWeightedLinkedList(node_count=10, weight=1):
     self = WeightedGraph()
 
     for i in range(node_count):
@@ -99,13 +99,12 @@ def Dijkstras():
 
 
 # 6(b) (5 points) (You must submit code for this question!) In your Main class, create a non-recursive method called GridGraph createRandomGridGraph(int n) that creates n2 random nodes with randomly assigned unweighted, bidirectional edges. These nodes should be (0,0), (1,0), (2,0),..., (n,0),(0,1),(1,1),...(n,1),...,(n,n). Nodes should have a 50% chance of being connected to their neighbors, and a 0% chance of being connected to non-neighbors. For example, the Node at (1,1) should have a 50% chance of being connected to the node (0,1), 50% to (1,0), 50% to (2,1), and 50% to (1,2), but a 0% chance of being connected to (2,2). 
-def createRandomGridGraph(self, node_count_sq=10):
-    self = GridGraph()
-    rows = cols = node_count_sq
+def createRandomGridGraph(node_count_sq=10):
+    self = GridGraph(node_count_sq)
 
-    for row in range(rows):
-        for col in range(cols):
-            self.addGridNode(str(row*node_count_sq + col), row, col)
+    for row in range(self.width):
+        for col in range(self.width):
+            self.addGridNode(str(row*self.width + col), row, col)
 
     for row in self.nodes:
         for node in row:
@@ -113,7 +112,7 @@ def createRandomGridGraph(self, node_count_sq=10):
                 self.addUndirectedEdge(node.val, self.nodes[node.x][node.y - 1].val)
                 self.addUndirectedEdge(self.nodes[node.x][node.y - 1].val, node.val)
 
-            if random.randint(0, 9) >= 7 and node.y < node_count_sq - 1: # If right node, connects 50%(~49%) of the time
+            if random.randint(0, 9) >= 7 and node.y < self.width - 1: # If right node, connects 50%(~49%) of the time
                 self.addUndirectedEdge(node.val, self.nodes[node.x][node.y + 1].val)
                 self.addUndirectedEdge(self.nodes[node.x][node.y + 1].val, node.val)
 
@@ -121,7 +120,7 @@ def createRandomGridGraph(self, node_count_sq=10):
                 self.addUndirectedEdge(node.val, self.nodes[node.x - 1][node.y].val)
                 self.addUndirectedEdge(self.nodes[node.x - 1][node.y].val, node.val)
 
-            if random.randint(0, 9) >= 7 and node.x < node_count_sq - 1: # If bottom node, connects 50%(~49%) of the time
+            if random.randint(0, 9) >= 7 and node.x < self.width - 1: # If bottom node, connects 50%(~49%) of the time
                 self.addUndirectedEdge(node.val, self.nodes[node.x  + 1][node.y].val)
                 self.addUndirectedEdge(self.nodes[node.x  + 1][node.y].val, node.val)
 
@@ -151,29 +150,29 @@ if __name__ == "__main__":
     createLinkedList(graph)
 
     # Directed Graph:
-    dir_graph = createRandomDAGIter(DirectedGraph())
+    dir_graph = createRandomDAGIter()
     dir_graph.printGraph()
 
     # Weighted Graph:
     weighted_graph = WeightedGraph()
-    weighted_graph = createRandomCompleteWeightedGraph(WeightedGraph(), 10)
+    weighted_graph = createRandomCompleteWeightedGraph(10)
     weighted_graph.printGraph()
 
     # Weighted Linked List:
-    wll = createWeightedLinkedList(graph, 10, 2)
+    wll = createWeightedLinkedList(10, 2)
     wll.printGraph()
     
     # graph = GraphSearch()
-    graph = createRandomUnweightedGraphIter(GraphSearch(), 200)
+    graph = createRandomUnweightedGraphIter(200)
     graph.printGraph()
     # graph.addUndirectedEdge("0", "19")
     # graph.DFSRec(0, 19)
     # graph.printResult(graph.DFSRec(0, 19))
     # graph.printResult(graph.DFSIter(0, 19))
     GraphSearch.printYellow(None, "Test")
-    # graph.printResult(graph.BFTRec(0, 19))
+   
 
-    gGraph = createRandomGridGraph(GridGraph(), 8)
+    gGraph = createRandomGridGraph(8)
     gGraph.printGraph()
 
     # print(BFTRecLinkedList(None)) # Exceeds max recursion depth!

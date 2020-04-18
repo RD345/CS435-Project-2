@@ -7,8 +7,8 @@ class GridNode(Node):
     def __init__(self, val, x, y):
 
         self.val = val
-        self.x = x
-        self.y = y
+        self.x = x # Row of node
+        self.y = y # Col of node
         self.connections = [] # Connection format: [(connected Node node), (int edge_type 0=undirected, 1=directional, 2=bidirectional), (int weight)]
         self.visited = False
 
@@ -16,17 +16,17 @@ class GridNode(Node):
 # (a)	(5 points) You must submit code for this question! Write a class GridGraph that supports the following functions: 
 class GridGraph(Graph):
 
-    def __init__(self):
+    def __init__(self, width):
 
         self.nodes = [[]] # Node list
+        self.width = width # length of sides
+        
 
     # i.	void addGridNode(final int x, final int y, final String nodeVal) - This adds a new GridNode to the graph with coordinates x and y. A GridNode keeps track of its value as well as its (x,y) coordinates. 
     def addGridNode(self, val, x, y):
-        try:
-            self.nodes[x].append(GridNode(str(val), x, y))
-        except IndexError:
+        if not self.nodes[x]:
             self.nodes.append([])
-            self.nodes[x].append(GridNode(str(val), x, y))
+        self.nodes[x].append(GridNode(str(val), x, y))
 
 
     # ii.	void addUndirectedEdge(final GridNode first, final GridNode second) - This adds an undirected, unweighted edge between first and second (and vice versa) if first and second are neighbors. If they are not neighbors, do nothing.
@@ -35,7 +35,7 @@ class GridGraph(Graph):
         if node1 == None or node2 == None:
             print("Node is none.")
             return
-        if node1.x == node2.x - 1 or node1.x == node2.x + 1 or node1.x == node2.x: # Checks if nodes are adjacent horizontally. 
+        elif node1.x == node2.x - 1 or node1.x == node2.x + 1 or node1.x == node2.x: # Checks if nodes are adjacent horizontally. 
             node1.addEdge(node2, 0)
             node2.addEdge(node1, 0)
         elif node1.y == node2.y - 1 or node1.y == node2.y + 1 or node1.y == node2.y: # Checks if nodes are adjacent vetically.  
