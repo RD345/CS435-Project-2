@@ -65,7 +65,7 @@ class Graph():
 
 
     # Print the graph in a very easy to understand way:
-    def printGraph(self):
+    def __str__(self):
         print('\n' + "Graph:")
         for node in self.nodes:
              print(node.val, end=' ')
@@ -74,7 +74,8 @@ class Graph():
         for node in self.nodes:
             node.printVal()                
             node.printConnections()
-        print()
+        return '\n'
+
 
 if __name__ == "__main__":
     
@@ -88,12 +89,12 @@ if __name__ == "__main__":
     graph.addUndirectedEdge("0", "1")
     graph.addUndirectedEdge("0", "2")
     graph.addUndirectedEdge("2", "0")
-    graph.printGraph()
+    print(graph)
 
 
     print("\nRemoving an Edge...")
     graph.removeUndirectedEdge("0", "1")
-    graph.printGraph()
+    print(graph)
 
 
     print("Main took:", f"{time.perf_counter()-start:.3}", "seconds") # Prints the time taken for main to run.

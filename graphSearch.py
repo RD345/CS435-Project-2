@@ -226,7 +226,7 @@ if __name__ == "__main__":
     for i in range(1, 9):
         graph.addUndirectedEdge(i, i+1)
 
-    graph.printGraph()
+    print(graph)()
 
     print("Adding Edge...")
     graph.addUndirectedEdge("0", "1")

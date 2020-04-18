@@ -36,8 +36,8 @@ if __name__ == "__main__":
 
     print("Adding Weighted Edge...")
     graph.addWeightedEdge("0", "1", 3)
-    graph.printGraph()
+    print(graph)()
 
     print("\nRemoving an Edge...")
     graph.removeDirectedEdge("0", "1")
-    graph.printGraph()
+    print(graph)()

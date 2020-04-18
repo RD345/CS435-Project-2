@@ -43,7 +43,7 @@ def BFTRecLinkedList(node_count=10000):
 # 3(i)	(2 points) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTIterLinkedList(final Graph graph). This should run a BFT iteratively on a LinkedList. Your LinkedList should have 10,000 nodes.
 def BFTIterLinkedList(node_count=10000):
     self = createLinkedList(node_count)
-    self.printGraph()
+    print(self)
     return GraphSearch.BFTIter(self, 0)
 
 
@@ -152,26 +152,26 @@ if __name__ == "__main__":
 
     # Directed Graph:
     dir_graph = createRandomDAGIter()
-    dir_graph.printGraph()
+    print(dir_graph)
 
     # Weighted Graph:
     weighted_graph = WeightedGraph()
     weighted_graph = createRandomCompleteWeightedGraph(10)
-    weighted_graph.printGraph()
+    print(weighted_graph)
 
     # Weighted Linked List:
     wll = createWeightedLinkedList(10, 2)
-    wll.printGraph()
+    print(wll)
     
     # Random unweighted graph:
     print("Random Unwighted graph:")
     graph = createRandomUnweightedGraphIter(200)
-    graph.printGraph()
+    print(graph)
 
     # Gridgraph:
     print("Grid Graph:")
     gGraph = createRandomGridGraph(8)
-    gGraph.printGraph()
+    print(gGraph)
     
     # Graph Traversals:
     print("Graph Searches:")

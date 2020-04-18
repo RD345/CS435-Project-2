@@ -83,7 +83,7 @@ class GridGraph(Graph):
             return None
 
 
-    def printGraph(self):
+    def __str__(self):
         print('\n' + "Graph:")
         for row in self.nodes:
             for node in row:
@@ -98,7 +98,7 @@ class GridGraph(Graph):
                 node.printConnections()
                 print()
 
-        print()
+        return '\n'
 
 
 if __name__ == "__main__":
@@ -108,11 +108,11 @@ if __name__ == "__main__":
     graph.addGridNode(1, 0, 1)
     graph.addUndirectedEdge(0, 1)
     graph.addUndirectedEdge(0, 1)
-    graph.printGraph()
+    print(graph)
     print(graph.getNode(1).val)
 
     print("\nRemoving Edge...")
     graph.removeUndirectedEdge(0, 1)
-    graph.printGraph()
+    print(graph)
 
     print(graph.getAllNodes())
