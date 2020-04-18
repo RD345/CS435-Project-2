@@ -103,7 +103,7 @@ class GridGraph(Graph):
 
 if __name__ == "__main__":
 
-    graph = GridGraph()
+    graph = GridGraph(2)
     graph.addGridNode(0, 0, 0)
     graph.addGridNode(1, 0, 1)
     graph.addUndirectedEdge(0, 1)
@@ -116,3 +116,4 @@ if __name__ == "__main__":
     graph.printGraph()
 
     print(graph.getAllNodes())
+    

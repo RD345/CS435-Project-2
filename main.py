@@ -8,7 +8,7 @@ import random, math, time
 
 
 # 3(b)	(2 points) (You must submit code for this question!) In your Main class, create a nonrecursive method called Graph createRandomUnweightedGraphIter(int n) that creates n random nodes with randomly assigned unweighted, bidirectional edges. You should use some of the methods you implemented in part (a). Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges!
-def createRandomUnweightedGraphIter(self, node_count=10): 
+def createRandomUnweightedGraphIter(node_count=10): 
     self = Graph()       
     for n in range(node_count):
         self.addNode(n)
@@ -22,7 +22,7 @@ def createRandomUnweightedGraphIter(self, node_count=10):
 
 
 # 3(c)	(2 points) (You must submit code for this question!) In your Main class, create a non-recursive method called Graph createLinkedList(int n) that creates a Graph with n nodes where each node only has an edge to the next node created. For example, if you create nodes 1, 2, and 3, Node 1 only has an edge to Node 2, and Node 2 only has an edge to Node 3.
-def createLinkedList(self, node_count=10):
+def createLinkedList(node_count=10):
     self = Graph()
 
     for i in range(0, node_count):
@@ -34,16 +34,16 @@ def createLinkedList(self, node_count=10):
 
 
 # 3(h)	(3 points) (You may submit a screenshot for this question, but you’re not required to.) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTRecLinkedList(final Graph graph). This should run a BFT recursively on a LinkedList. Your LinkedList should have 10,000 nodes.
-def BFTRecLinkedList(self, node_count=10000):
-    linked_list = createLinkedList(Graph(), node_count)
-    return GraphSearch.BFTRec(linked_list, 0, node_count)
+def BFTRecLinkedList(node_count=10000):
+    self = createLinkedList(node_count)
+    return GraphSearch.BFTRec(self, 0, node_count)
 
 
 # 3(i)	(2 points) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTIterLinkedList(final Graph graph). This should run a BFT iteratively on a LinkedList. Your LinkedList should have 10,000 nodes.
-def BFTIterLinkedList(self, node_count=10000):
-    linked_list = createLinkedList(Graph(), node_count)
-    linked_list.printGraph()
-    return GraphSearch.BFTIter(linked_list, 0, node_count-1)
+def BFTIterLinkedList(node_count=10000):
+    self = createLinkedList(node_count)
+    self.printGraph()
+    return GraphSearch.BFTIter(self, 0, node_count-1)
 
 
 # 4(c)	(3 points) (You must submit code for this question!) In your Main class, create a non-recursive method called DirectedGraph createRandomDAGIter(final int n) that creates n random nodes with randomly assigned unweighted, directed edges. You should use some of the methods you implemented in part (a) of this question. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
@@ -141,13 +141,13 @@ def aStar(self, start, end):
 # 7 Complete:                               | Incomplete: a
 if __name__ == "__main__":
     start = time.perf_counter()
+
     # Graph: 
     graph = Graph()
     graph.addNode('0')
     graph.addNode('1')
     graph.addNode('2')
     graph.addNode('3')
-    createLinkedList(graph)
 
     # Directed Graph:
     dir_graph = createRandomDAGIter()
@@ -162,23 +162,23 @@ if __name__ == "__main__":
     wll = createWeightedLinkedList(10, 2)
     wll.printGraph()
     
-    # graph = GraphSearch()
+    # Random unweighted graph:
     graph = createRandomUnweightedGraphIter(200)
     graph.printGraph()
-    # graph.addUndirectedEdge("0", "19")
-    # graph.DFSRec(0, 19)
-    # graph.printResult(graph.DFSRec(0, 19))
-    # graph.printResult(graph.DFSIter(0, 19))
-    GraphSearch.printYellow(None, "Test")
-   
 
+    # Graph searches:
+    GraphSearch.printResult(GraphSearch(), GraphSearch.BFTIter(graph, 0, 2))
+    GraphSearch.printResult(GraphSearch(), GraphSearch.DFSIter(createRandomUnweightedGraphIter(200), 0, 199))
+    GraphSearch.printYellow("Test")
+   
+    # Gridgraph:
     gGraph = createRandomGridGraph(8)
     gGraph.printGraph()
 
-    # print(BFTRecLinkedList(None)) # Exceeds max recursion depth!
-    # GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(None, 10000))
+    # print(BFTRecLinkedList()) # Exceeds max recursion depth!
+    GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(100)) # BFT on a linked list
     
-    # GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(None, 100)) # Exceeds recursion limit if node_count is too high!
-    # GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(None)) # Works great with default (10,000 nodes)
+    GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(100)) # Exceeds recursion limit if node_count is too high!
+    # GraphSearch.printResult(GraphSearch(), BFTIterLinkedList()) # Works great with default (10,000 nodes), spams the console!
 
     print("Main took:", f"{time.perf_counter()-start:.3}", "seconds") # Prints the time taken for main to run.

@@ -68,6 +68,12 @@ class Graph():
         return set(self.nodes) # Converts to set to eliminate duplicates, if any.
     
 
+    # Resets the nodes for graph to be searched again:
+    def resetNodes(self):
+        for node in self.nodes:
+            node.resetVisited()
+
+
     # Print the graph in a very easy to understand way:
     def printGraph(self):
         print('\n' + "Graph:")
@@ -101,3 +107,4 @@ if __name__ == "__main__":
 
 
     print("Main took:", f"{time.perf_counter()-start:.3}", "seconds") # Prints the time taken for main to run.
+    

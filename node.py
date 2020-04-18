@@ -49,7 +49,5 @@ class Node(object):
 
 
     # Reset the visited value:
-    def resetVisted(self):
+    def resetVisited(self):
         self.visited = False
-
-    

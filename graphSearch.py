@@ -4,6 +4,7 @@ from graph import Graph
 class GraphSearch(Graph):
    
     def __init__(self):
+
         super().__init__()
 
 
@@ -26,13 +27,13 @@ class GraphSearch(Graph):
         start_node = self.getNode(start_node)
         dfs = []
         found = __DFSHelper(dfs, start_node)
+        self.resetNodes() # Resets the nodes for graph to be searched again
         return dfs
 
 
     # 3(e)	(5 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> DFSIter(final Node start, final Node end), which iteratively returns an ArrayList of the Nodes in the Graph in a valid Depth-First Search order. The first node in the array should be start and the last should be end. If no valid DFS path goes from start to end, return null.
     def DFSIter(self, start_node, end_node):
         stack, visited = [], []
-        found = False
         curr_node = self.getNode(start_node) # Ensures that start_node is a Node object.
         
         curr_node.visited = True # Mark current node visited.
@@ -44,16 +45,15 @@ class GraphSearch(Graph):
             curr_node.visited = True # Marks the node visited
 
             if curr_node.val == str(end_node):
+                self.resetNodes() # Resets the nodes for graph to be searched again:
                 return visited
             else:
                 for neighbor in curr_node.connections: # Loops through the neighbors:
                     if not neighbor[0].visited:
                         stack.append(neighbor[0]) # Stacks the unvisited neighbors.
-                       
-        if found: # If the end_node was found, return the visited list:
-            return visited
-        else: # Otherwise return False:
-            return False
+
+        self.resetNodes() # Resets the nodes for graph to be searched again
+        return None # If node was not found, returns None
 
 
     # 3(f)	(3 points) (You must submit code for this question!) In your GraphSearch class, implement ArrayList<Node> BFTRec(final Graph graph), which recursively returns an ArrayList of the Nodes in the Graph in a valid Breadth-First Traversal order.
@@ -75,6 +75,7 @@ class GraphSearch(Graph):
         start_node, end_node = self.getNode(start_node), str(end_node)
         bft = []
         __BFTHelper(bft, start_node)
+        self.resetNodes() # Resets the nodes for graph to be searched again
         return bft
 
 
@@ -94,24 +95,27 @@ class GraphSearch(Graph):
             visited.append(curr_node) # Adds it to the visited list
 
             if curr_node.val == end_node:
+                self.resetNodes() # Resets the nodes for graph to be searched again
                 return visited
             else:
                 for connection in curr_node.connections:
                     neighbor = connection[0]
                     if not neighbor.visited:
                         queue.append(neighbor)
-       
-        return False
+        
+        self.resetNodes() # Resets the nodes for graph to be searched again
+        return None # If node was not found, returns None
 
 
-    def printYellow(self, txt): print("\033[93m {}\033[00m" .format(txt)) 
+    def printYellow(txt): print("\033[93m {}\033[00m" .format(txt)) 
 
-    def printResult(self, union):
-        if union:
-            for i in range (len(union)-1):
-                print(union[i].val, end='->')
 
-            GraphSearch.printYellow(GraphSearch(), union[len(union)-1].val)
+    def printResult(self, result):
+        if result:
+            for i in range (len(result)-1):
+                print(result[i].val, end='->')
+
+            GraphSearch.printYellow(result[len(result)-1].val)
         else:
             print("\nNo path found")
 
@@ -129,10 +133,8 @@ if __name__ == "__main__":
     graph.addUndirectedEdge("1", "2")
 
     print("Doing Traversals...")
-    # graph.DFSRec(0, 19)
-    # Only one will work at a time due to visiting not being reset:
     graph.printResult(graph.DFSRec(0, 2))
     graph.printResult(graph.DFSIter(0, 2))
-    # graph.printResult(graph.BFTRec(0, 2)) 
-    # graph.printResult(graph.BFTIter(0, 2))
+    graph.printResult(graph.BFTRec(0, 2)) 
+    graph.printResult(graph.BFTIter(0, 2))
     
