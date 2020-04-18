@@ -37,14 +37,14 @@ def createLinkedList(node_count=10):
 # 3(h)	(3 points) (You may submit a screenshot for this question, but you’re not required to.) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTRecLinkedList(final Graph graph). This should run a BFT recursively on a LinkedList. Your LinkedList should have 10,000 nodes.
 def BFTRecLinkedList(node_count=10000):
     self = createLinkedList(node_count)
-    return GraphSearch.BFTRec(self, 0, node_count)
+    return GraphSearch.BFTRec(self, 0)
 
 
 # 3(i)	(2 points) Using the methods above in GraphSearch, in your Main class, implement ArrayList<Node> BFTIterLinkedList(final Graph graph). This should run a BFT iteratively on a LinkedList. Your LinkedList should have 10,000 nodes.
 def BFTIterLinkedList(node_count=10000):
     self = createLinkedList(node_count)
     self.printGraph()
-    return GraphSearch.BFTIter(self, 0, node_count-1)
+    return GraphSearch.BFTIter(self, 0)
 
 
 # 4(c)	(3 points) (You must submit code for this question!) In your Main class, create a non-recursive method called DirectedGraph createRandomDAGIter(final int n) that creates n random nodes with randomly assigned unweighted, directed edges. You should use some of the methods you implemented in part (a) of this question. Make sure you’re either implementing an adjacency list or an adjacency matrix to keep track of your edges, and keeping track of directionality!
@@ -173,11 +173,10 @@ if __name__ == "__main__":
     gGraph = createRandomGridGraph(8)
     gGraph.printGraph()
     
-    # Graph searches:
+    # Graph Traversals:
     print("Graph Searches:")
-    GraphSearch.printResult(GraphSearch(), GraphSearch.BFTIter(graph, 0, 2))
-    GraphSearch.printResult(GraphSearch(), GraphSearch.DFSIter(createRandomUnweightedGraphIter(200), 0, 199))
-    GraphSearch.printYellow("Test")
+    GraphSearch.printResult(GraphSearch(), GraphSearch.BFTIter(graph, 0))
+    GraphSearch.printResult(GraphSearch(), GraphSearch.DFTIter(createRandomUnweightedGraphIter(200), 0))
     # print(BFTRecLinkedList()) # Exceeds max recursion depth!
     GraphSearch.printResult(GraphSearch(), BFTIterLinkedList(100)) # BFT on a linked list
     GraphSearch.printResult(GraphSearch(), BFTRecLinkedList(100)) # Exceeds recursion limit if node_count is too high!
